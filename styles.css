@@ -142,22 +142,22 @@ strong { color: var(--ink); font-weight: 500; }
 .file-link:hover { color: var(--ink); }
 .status { color: var(--muted); }
 
-.goal-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line-strong); }
-.goal-card { display: grid; grid-template-columns: 36px 1fr; min-height: 255px; border-right: 1px solid var(--line-strong); }
-.goal-card:last-child { border-right: 0; }
+.goal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.goal-card { min-width: 0; }
 .goal-card h3 {
   margin: 0;
-  padding: 12px 7px;
+  padding: 8px 0;
   color: var(--blue);
-  border-right: 1px solid var(--line);
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line);
   font-size: inherit;
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: .12em;
   text-transform: uppercase;
-  writing-mode: vertical-rl;
+  writing-mode: horizontal-tb;
 }
 
-.goal-content, .check-list { padding: 14px 12px; }
+.goal-content, .check-list { padding: 12px 0 0; }
 .method { min-height: 52px; margin: 0; color: var(--ink); }
 .ranked-list li { display: flex; justify-content: space-between; padding: 7px 0; color: var(--ink); border-top: 1px solid var(--line); }
 .ranked-list span { color: var(--blue); font-size: inherit; }
@@ -179,8 +179,6 @@ footer a { text-decoration: none; }
 
 @media (max-width: 860px) {
   .goal-grid { grid-template-columns: repeat(2, 1fr); }
-  .goal-card:nth-child(2) { border-right: 0; }
-  .goal-card:nth-child(-n+2) { border-bottom: 1px solid var(--line-strong); }
 }
 
 @media (max-width: 640px) {
@@ -192,8 +190,7 @@ footer a { text-decoration: none; }
   .project-list li { grid-template-columns: 1fr; gap: 12px; }
   .file-link, .status { text-align: left; }
   .goal-grid { grid-template-columns: 1fr; }
-  .goal-card { min-height: 230px; border-right: 0; border-bottom: 1px solid var(--line-strong); }
-  .goal-card:last-child { border-bottom: 0; }
+  .goal-card { min-height: 0; }
   .closing-grid { grid-template-columns: 1fr; }
   .closing-grid > section:first-child { border-right: 0; }
   footer { padding: 18px; }
