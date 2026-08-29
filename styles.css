@@ -77,6 +77,7 @@ a { color: inherit; }
 }
 
 .social-grid a {
+  position: relative;
   display: grid;
   flex: 0 0 32px;
   width: 32px;
@@ -90,6 +91,26 @@ a { color: inherit; }
 }
 
 .social-grid a:hover, .social-grid a:focus-visible { color: var(--ink); background: rgba(43, 100, 138, .38); border-color: var(--line-strong); }
+.social-grid .coming-soon::after {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 7px);
+  left: 50%;
+  padding: 3px 6px;
+  color: var(--ink);
+  background: var(--deep-blue);
+  border: 1px solid var(--line-strong);
+  content: attr(data-tooltip);
+  font-size: 11px;
+  line-height: 1.4;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transition: opacity .15s ease;
+  white-space: nowrap;
+}
+.social-grid .coming-soon:hover::after,
+.social-grid .coming-soon:focus-visible::after { opacity: 1; }
 .social-grid svg { width: 15px; height: 15px; fill: currentColor; }
 .social-grid .hf-icon {
   display: block;
