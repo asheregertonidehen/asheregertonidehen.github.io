@@ -89,6 +89,7 @@ a { color: inherit; }
 
 .social-grid a:hover, .social-grid a:focus-visible { color: var(--ink); background: rgba(43, 100, 138, .38); border-color: var(--line-strong); }
 .social-grid svg { width: 15px; height: 15px; fill: currentColor; }
+.social-grid .hf-icon { font-size: 17px; line-height: 1; }
 
 .ruled-section { padding: 30px 32px; border-bottom: 1px solid var(--line-strong); }
 .intro { padding-block: 24px; }
@@ -159,6 +160,7 @@ strong { color: var(--ink); font-weight: 500; }
 
 .goal-content, .check-list { padding: 12px 0 0; }
 .method { min-height: 52px; margin: 0; color: var(--ink); }
+.secondary-method { min-height: 0; margin-top: 18px; margin-bottom: 6px; }
 .ranked-list li { display: flex; justify-content: space-between; padding: 7px 0; color: var(--ink); border-top: 1px solid var(--line); }
 .ranked-list span { color: var(--blue); font-size: inherit; }
 .check-list li { position: relative; padding: 5px 0 5px 20px; border-bottom: 1px solid var(--line); }
