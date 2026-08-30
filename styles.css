@@ -76,21 +76,20 @@ a { color: inherit; }
   margin: 0;
 }
 
-.social-grid a {
+.social-grid a,
+.social-grid .social-link {
   position: relative;
-  display: grid;
-  flex: 0 0 32px;
-  width: 32px;
-  height: 32px;
-  overflow: hidden;
-  place-items: center;
+  display: inline-block;
+  flex: 0 0 auto;
   color: var(--blue);
   text-decoration: none;
-  border: 1px solid transparent;
-  transition: background .18s ease, border-color .18s ease, color .18s ease;
+  transition: color .18s ease;
 }
 
-.social-grid a:hover, .social-grid a:focus-visible { color: var(--ink); background: rgba(43, 100, 138, .38); border-color: var(--line-strong); }
+.social-grid a:hover,
+.social-grid a:focus-visible,
+.social-grid .social-link:hover,
+.social-grid .social-link:focus-visible { color: var(--ink); }
 .social-grid .coming-soon::after {
   position: absolute;
   z-index: 2;
@@ -111,16 +110,6 @@ a { color: inherit; }
 }
 .social-grid .coming-soon:hover::after,
 .social-grid .coming-soon:focus-visible::after { opacity: 1; }
-.social-grid svg { width: 15px; height: 15px; fill: currentColor; }
-.social-grid .hf-icon {
-  display: block;
-  color: var(--blue);
-  font-size: 17px;
-  font-family: "Segoe UI Symbol", "Noto Sans Symbols 2", sans-serif;
-  font-variant-emoji: text;
-  line-height: 1;
-}
-
 .ruled-section { padding: 30px 32px; border-bottom: 1px solid var(--line-strong); }
 .intro { padding-block: 24px; }
 
