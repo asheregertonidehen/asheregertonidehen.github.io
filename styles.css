@@ -178,18 +178,18 @@ strong { color: var(--ink); font-weight: 500; }
 }
 
 .goal-content, .check-list { padding: 12px 0 0; }
-.reading-content { padding: 12px 0 0; }
-.reading-content > .check-list,
-.finished-books .check-list { padding: 0; }
-.finished-books { margin-top: 12px; }
-.finished-books summary {
+.progress-list-content { padding: 12px 0 0; }
+.progress-list-content > .check-list,
+.finished-list .check-list { padding: 0; }
+.finished-list { margin-top: 12px; }
+.finished-list summary {
   padding: 7px 0;
   color: var(--blue);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   cursor: pointer;
 }
-.finished-books[open] summary { margin-bottom: 4px; }
+.finished-list[open] summary { margin-bottom: 4px; }
 .score-group + .score-group { margin-top: 18px; }
 .method {
   margin: 0;
