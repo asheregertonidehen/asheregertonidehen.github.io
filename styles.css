@@ -5,7 +5,7 @@
   --deep-blue: #071c2d;
   --line: rgba(129, 186, 225, 0.25);
   --line-strong: rgba(129, 186, 225, 0.52);
-  --grid: rgba(89, 153, 196, 0.1);
+  --grid: rgba(89, 153, 196, 0.065);
 }
 
 * { box-sizing: border-box; }
@@ -20,8 +20,8 @@ body {
   background-image:
     linear-gradient(var(--grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid) 1px, transparent 1px),
-    linear-gradient(rgba(89, 153, 196, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(89, 153, 196, 0.045) 1px, transparent 1px);
+    linear-gradient(rgba(89, 153, 196, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(89, 153, 196, 0.025) 1px, transparent 1px);
   background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
   font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: 14px;
