@@ -147,6 +147,8 @@ h2 {
 }
 
 .project-list p { margin: 0; }
+.project-links { display: flex; gap: 12px; }
+.project-links .file-link { min-width: 0; }
 strong { color: var(--ink); font-weight: 500; }
 
 .file-link, .status {
