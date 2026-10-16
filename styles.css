@@ -124,6 +124,7 @@ h2 {
 }
 
 .project-list p { margin: 0; }
+.research-list p { max-width: 600px; }
 .project-links { display: flex; gap: 12px; }
 .project-links .file-link { min-width: 0; }
 strong { color: var(--ink); font-weight: 500; }
@@ -185,11 +186,6 @@ strong { color: var(--ink); font-weight: 500; }
 .check-list .done { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--blue); }
 .check-list .done::before { content: "✓"; }
 
-.closing-grid { display: grid; grid-template-columns: 1fr 1fr; }
-.closing-grid > section:first-child { border-right: 1px solid var(--line-strong); }
-.closing-grid .section-heading { display: grid; }
-.closing-grid .section-heading p { margin-bottom: 0; }
-.closing-grid h2 { font-size: inherit; }
 .plain-list li { padding: 11px 0; border-top: 1px solid var(--line); }
 
 footer { display: flex; justify-content: space-between; padding: 18px 32px; color: var(--blue); font-size: inherit; text-transform: uppercase; }
@@ -210,8 +206,6 @@ footer a { text-decoration: none; }
   .file-link, .status { text-align: left; }
   .goal-grid { grid-template-columns: 1fr; }
   .goal-card { min-height: 0; }
-  .closing-grid { grid-template-columns: 1fr; }
-  .closing-grid > section:first-child { border-right: 0; }
   footer { padding: 18px; }
 }
 
