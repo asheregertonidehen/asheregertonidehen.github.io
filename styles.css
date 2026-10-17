@@ -182,6 +182,8 @@ strong { color: var(--ink); font-weight: 500; }
 }
 .ranked-list li { display: flex; justify-content: space-between; padding: 7px 0; color: var(--ink); border-bottom: 1px solid var(--line); }
 .ranked-list span { color: var(--blue); font-size: inherit; }
+.average-score { display: flex; justify-content: space-between; margin: 0; padding: 7px 0; color: var(--ink); }
+.average-score span:first-child { color: var(--blue); }
 .check-list li { position: relative; padding: 5px 0 5px 20px; border-bottom: 1px solid var(--line); }
 .check-list li::before { position: absolute; left: 0; content: "○"; color: var(--blue); }
 .check-list .done { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--blue); }
