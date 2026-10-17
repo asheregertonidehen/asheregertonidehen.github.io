@@ -7600,9 +7600,63 @@ This evaluates the overlap of character sequences and word sequences between the
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput">
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput">
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">sacrebleu</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># citations:</span>
+<span class="c1"># https://huggingface.co/docs/huggingface_hub/quick-start</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">huggingface_hub</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">userdata</span>
+
+<span class="c1"># Retrieve the Hugging Face token from Colab secrets and strip any whitespace</span>
+<span class="n">HF_TOKEN</span> <span class="o">=</span> <span class="n">userdata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'HF_TOKEN'</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="c1"># Log in to Hugging Face using the retrieved token to access the gated dataset</span>
+<span class="n">huggingface_hub</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">HF_TOKEN</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># citations:</span>
+<span class="c1"># https://colab.research.google.com/notebooks/io.ipynb</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
+
+<span class="c1"># Connect to Google Drive so we can safely save our final evaluation results later</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">'/content/drive'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7614,7 +7668,131 @@ This evaluates the overlap of character sequences and word sequences between the
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># citations:</span>
+<span class="c1"># https://huggingface.co/docs/datasets/loading</span>
+<span class="c1"># https://docs.python.org/3/library/unicodedata.html</span>
+<span class="c1"># https://pypi.org/project/regex/</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dataset</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">unicodedata</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">regex</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">difflib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForSeq2SeqLM</span>
+
+<span class="c1"># 1. Load the benchmark data</span>
+<span class="c1"># We use FLORES+, a high-quality Meta dataset for translation.</span>
+<span class="n">english_d</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">"openlanguagedata/flores_plus"</span><span class="p">,</span> <span class="s2">"eng_Latn"</span><span class="p">)</span>
+<span class="n">ewe_d</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">"openlanguagedata/flores_plus"</span><span class="p">,</span> <span class="s2">"ewe_Latn"</span><span class="p">)</span>
+<span class="n">igbo_d</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">"openlanguagedata/flores_plus"</span><span class="p">,</span> <span class="s2">"ibo_Latn"</span><span class="p">)</span>
+<span class="n">yoruba_d</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">"openlanguagedata/flores_plus"</span><span class="p">,</span> <span class="s2">"yor_Latn"</span><span class="p">)</span>
+
+<span class="c1"># 2. Normalize Text</span>
+<span class="c1"># Forces every character into a standard Unicode format (NFC) so computers can compare them perfectly.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">normalize_dataset</span><span class="p">(</span><span class="n">example</span><span class="p">):</span>
+    <span class="n">example</span><span class="p">[</span><span class="s1">'text'</span><span class="p">]</span> <span class="o">=</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">'NFC'</span><span class="p">,</span> <span class="n">example</span><span class="p">[</span><span class="s1">'text'</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">example</span>
+
+<span class="n">english_n</span> <span class="o">=</span> <span class="n">english_d</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">normalize_dataset</span><span class="p">)</span>
+<span class="n">ewe_n</span> <span class="o">=</span> <span class="n">ewe_d</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">normalize_dataset</span><span class="p">)</span>
+<span class="n">igbo_n</span> <span class="o">=</span> <span class="n">igbo_d</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">normalize_dataset</span><span class="p">)</span>
+<span class="n">yoruba_n</span> <span class="o">=</span> <span class="n">yoruba_d</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">normalize_dataset</span><span class="p">)</span>
+
+<span class="c1"># 3. Define the Official Alphabets</span>
+<span class="c1"># Here we define which characters count as 'tonal' vs 'orthographic'.</span>
+
+<span class="c1"># Yorùbá: Bamgbose (1965)</span>
+<span class="n">yoruba_tonal_str</span> <span class="o">=</span> <span class="s2">"áàéèíìóòúùẹ́ẹ̀ọ́ọ̀ńǹḿm̀"</span>
+<span class="n">yoruba_orth_str</span> <span class="o">=</span> <span class="s2">"ẹọṣẹ́ẹ̀ọ́ọ̀"</span>
+<span class="n">yoruba_total_str</span> <span class="o">=</span> <span class="s2">"abcdefghijklmnopqrstuwxyẹọṣáàéèíìóòúùẹ́ẹ̀ọ́ọ̀ńǹḿm̀"</span>
+
+<span class="c1"># Igbo: Onwu Committee (1961)</span>
+<span class="n">igbo_tonal_str</span> <span class="o">=</span> <span class="s2">"áàéèíìóòúùị́ị̀ọ́ọ̀ụ́ụ̀ńǹḿm̀"</span>
+<span class="n">igbo_orth_str</span> <span class="o">=</span> <span class="s2">"ịọụṅị́ị̀ọ́ọ̀ụ́ụ̀"</span>
+<span class="n">igbo_total_str</span> <span class="o">=</span> <span class="s2">"abcdefghijklmnopqrstuvwxyzịọụṅáàéèíìóòúùị́ị̀ọ́ọ̀ụ́ụ̀ńǹḿm̀"</span>
+
+<span class="c1"># Ewe: Capo (1991) / Gbe Orthography</span>
+<span class="n">ewe_tonal_str</span> <span class="o">=</span> <span class="s2">"áàǎâéèěêɛ́ɛ̀ɛ̌ɛ̂íìǐîóòǒôɔ́ɔ̀ɔ̌ɔ̂úùǔû"</span>
+<span class="n">ewe_orth_str</span> <span class="o">=</span> <span class="s2">"ɖɛƒɣŋɔʋɛ́ɛ̀ɛ̌ɛ̂ɔ́ɔ̀ɔ̌ɔ̂"</span>
+<span class="n">ewe_total_str</span> <span class="o">=</span> <span class="s2">"abcdefghijklmnopqrstuvwxyzɖɛƒɣŋɔʋáàǎâéèěêɛ́ɛ̀ɛ̌ɛ̂íìǐîóòǒôɔ́ɔ̀ɔ̌ɔ̂úùǔû"</span>
+
+<span class="c1"># Helper function to break a string down into unique, normalized characters (graphemes)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_grapheme_set</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">normalized_text</span> <span class="o">=</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">'NFC'</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\X'</span><span class="p">,</span> <span class="n">normalized_text</span><span class="p">))</span>
+
+<span class="n">yoruba_valid</span> <span class="o">=</span> <span class="n">make_grapheme_set</span><span class="p">(</span><span class="n">yoruba_total_str</span><span class="p">)</span>
+<span class="n">igbo_valid</span> <span class="o">=</span> <span class="n">make_grapheme_set</span><span class="p">(</span><span class="n">igbo_total_str</span><span class="p">)</span>
+<span class="n">ewe_valid</span> <span class="o">=</span> <span class="n">make_grapheme_set</span><span class="p">(</span><span class="n">ewe_total_str</span><span class="p">)</span>
+
+<span class="c1"># Group the sets dynamically by language to replace the old messy global if/else blocks</span>
+<span class="n">SETS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"yor_Latn"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"T"</span><span class="p">:</span> <span class="n">make_grapheme_set</span><span class="p">(</span><span class="n">yoruba_tonal_str</span><span class="p">),</span>
+        <span class="s2">"O"</span><span class="p">:</span> <span class="n">make_grapheme_set</span><span class="p">(</span><span class="n">yoruba_orth_str</span><span class="p">),</span>
+        <span class="s2">"valid"</span><span class="p">:</span> <span class="n">yoruba_valid</span>
+    <span class="p">},</span>
+    <span class="s2">"ibo_Latn"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"T"</span><span class="p">:</span> <span class="n">make_grapheme_set</span><span class="p">(</span><span class="n">igbo_tonal_str</span><span class="p">),</span>
+        <span class="s2">"O"</span><span class="p">:</span> <span class="n">make_grapheme_set</span><span class="p">(</span><span class="n">igbo_orth_str</span><span class="p">),</span>
+        <span class="s2">"valid"</span><span class="p">:</span> <span class="n">igbo_valid</span>
+    <span class="p">},</span>
+    <span class="s2">"ewe_Latn"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"T"</span><span class="p">:</span> <span class="n">make_grapheme_set</span><span class="p">(</span><span class="n">ewe_tonal_str</span><span class="p">),</span>
+        <span class="s2">"O"</span><span class="p">:</span> <span class="n">make_grapheme_set</span><span class="p">(</span><span class="n">ewe_orth_str</span><span class="p">),</span>
+        <span class="s2">"valid"</span><span class="p">:</span> <span class="n">ewe_valid</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># 4. Filter the Datasets</span>
+<span class="c1"># We throw away sentences with foreign characters to ensure our error counts are accurate.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">filter_standard_orthography</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">valid_graphemes</span><span class="p">):</span>
+    <span class="n">text_lower</span> <span class="o">=</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">'NFC'</span><span class="p">,</span> <span class="n">example</span><span class="p">[</span><span class="s1">'text'</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\X'</span><span class="p">,</span> <span class="n">text_lower</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">islower</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">g</span><span class="p">)</span> <span class="ow">and</span> <span class="n">g</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_graphemes</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+<span class="c1"># Apply the language-specific filters</span>
+<span class="n">yoruba_f</span> <span class="o">=</span> <span class="n">yoruba_n</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">filter_standard_orthography</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">yoruba_valid</span><span class="p">))</span>
+<span class="n">igbo_f</span> <span class="o">=</span> <span class="n">igbo_n</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">filter_standard_orthography</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">igbo_valid</span><span class="p">))</span>
+<span class="n">ewe_f</span> <span class="o">=</span> <span class="n">ewe_n</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">filter_standard_orthography</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ewe_valid</span><span class="p">))</span>
+
+<span class="c1"># Ensure the English datasets match the surviving sentences exactly</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_ids</span><span class="p">(</span><span class="n">dataset_split</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">dataset_split</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span>
+
+<span class="n">english_ewe_f</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">english_igbo_f</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">english_yoruba_f</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'dev'</span><span class="p">,</span> <span class="s1">'devtest'</span><span class="p">]:</span>
+    <span class="n">ewe_ids</span> <span class="o">=</span> <span class="n">get_ids</span><span class="p">(</span><span class="n">ewe_f</span><span class="p">[</span><span class="n">split</span><span class="p">])</span>
+    <span class="n">igbo_ids</span> <span class="o">=</span> <span class="n">get_ids</span><span class="p">(</span><span class="n">igbo_f</span><span class="p">[</span><span class="n">split</span><span class="p">])</span>
+    <span class="n">yoruba_ids</span> <span class="o">=</span> <span class="n">get_ids</span><span class="p">(</span><span class="n">yoruba_f</span><span class="p">[</span><span class="n">split</span><span class="p">])</span>
+
+    <span class="n">english_ewe_f</span><span class="p">[</span><span class="n">split</span><span class="p">]</span> <span class="o">=</span> <span class="n">english_n</span><span class="p">[</span><span class="n">split</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="ow">in</span> <span class="n">ewe_ids</span><span class="p">)</span>
+    <span class="n">english_igbo_f</span><span class="p">[</span><span class="n">split</span><span class="p">]</span> <span class="o">=</span> <span class="n">english_n</span><span class="p">[</span><span class="n">split</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="ow">in</span> <span class="n">igbo_ids</span><span class="p">)</span>
+    <span class="n">english_yoruba_f</span><span class="p">[</span><span class="n">split</span><span class="p">]</span> <span class="o">=</span> <span class="n">english_n</span><span class="p">[</span><span class="n">split</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="ow">in</span> <span class="n">yoruba_ids</span><span class="p">)</span>
+
+<span class="c1"># Print pure sentence counts</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"ewe:</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ewe_f</span><span class="p">[</span><span class="s1">'devtest'</span><span class="p">])</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">ewe_f</span><span class="p">[</span><span class="s1">'dev'</span><span class="p">]),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"igbo:</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">igbo_f</span><span class="p">[</span><span class="s1">'devtest'</span><span class="p">])</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">igbo_f</span><span class="p">[</span><span class="s1">'dev'</span><span class="p">]),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"yoruba:</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">yoruba_f</span><span class="p">[</span><span class="s1">'devtest'</span><span class="p">])</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">yoruba_f</span><span class="p">[</span><span class="s1">'dev'</span><span class="p">]),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7626,7 +7804,133 @@ This evaluates the overlap of character sequences and word sequences between the
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># citations:</span>
+<span class="c1"># https://huggingface.co/docs/transformers/main_classes/text_generation</span>
+<span class="c1"># https://huggingface.co/docs/transformers/multilingual#nllb</span>
+<span class="c1"># https://docs.python.org/3/library/difflib.html</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">translate_batch</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">tgt_lang_code</span><span class="p">,</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
+    <span class="c1"># Translates a batch of English sentences simultaneously on the GPU for speed.</span>
+    <span class="n">all_outputs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">texts</span><span class="p">),</span> <span class="n">batch_size</span><span class="p">):</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="n">texts</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">batch_size</span><span class="p">]</span>
+        <span class="n">tokenizer</span><span class="o">.</span><span class="n">src_lang</span> <span class="o">=</span> <span class="s2">"eng_Latn"</span>
+
+        <span class="c1"># Convert words to numerical IDs for the AI</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span>
+            <span class="n">batch</span><span class="p">,</span>
+            <span class="n">return_tensors</span><span class="o">=</span><span class="s2">"pt"</span><span class="p">,</span>
+            <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">max_length</span><span class="o">=</span><span class="mi">256</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="c1"># Force the model to start speaking in the target language</span>
+        <span class="n">forced_bos_token_id</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_tokens_to_ids</span><span class="p">(</span><span class="n">tgt_lang_code</span><span class="p">)</span>
+
+        <span class="c1"># Generate the translation</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">,</span> <span class="n">forced_bos_token_id</span><span class="o">=</span><span class="n">forced_bos_token_id</span><span class="p">,</span>
+                                    <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">num_beams</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Convert numbers back to text</span>
+        <span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
+            <span class="n">decoded</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">all_outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s2">"NFC"</span><span class="p">,</span> <span class="n">decoded</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">all_outputs</span>
+
+<span class="n">CLASSES</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'T'</span><span class="p">,</span> <span class="s1">'O'</span><span class="p">,</span> <span class="s1">'M'</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_grapheme_type</span><span class="p">(</span><span class="n">g_nfc</span><span class="p">,</span> <span class="n">lang_sets</span><span class="p">):</span>
+    <span class="c1"># Checks the specific language dictionary to see if the mark is Tonal, Ortho, or Mixed.</span>
+    <span class="n">has_tone</span> <span class="o">=</span> <span class="n">g_nfc</span> <span class="ow">in</span> <span class="n">lang_sets</span><span class="p">[</span><span class="s2">"T"</span><span class="p">]</span>
+    <span class="n">has_ortho</span> <span class="o">=</span> <span class="n">g_nfc</span> <span class="ow">in</span> <span class="n">lang_sets</span><span class="p">[</span><span class="s2">"O"</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">has_tone</span> <span class="ow">and</span> <span class="n">has_ortho</span><span class="p">:</span> <span class="k">return</span> <span class="s2">"M"</span>
+    <span class="k">if</span> <span class="n">has_tone</span><span class="p">:</span> <span class="k">return</span> <span class="s2">"T"</span>
+    <span class="k">if</span> <span class="n">has_ortho</span><span class="p">:</span> <span class="k">return</span> <span class="s2">"O"</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">strip_grapheme</span><span class="p">(</span><span class="n">g</span><span class="p">):</span>
+    <span class="c1"># Remove all combining diacritics -&gt; base letter(s), lowercase.</span>
+    <span class="k">return</span> <span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">'NFD'</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">category</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">'Mn'</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">strip_token</span><span class="p">(</span><span class="n">tok</span><span class="p">):</span>
+    <span class="c1"># Strips all marks from a full word to create a 'base' word for alignment.</span>
+    <span class="k">return</span> <span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">strip_grapheme</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\X'</span><span class="p">,</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">'NFC'</span><span class="p">,</span> <span class="n">tok</span><span class="p">)))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">count_diacritic_errors</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">model_output</span><span class="p">,</span> <span class="n">lang_sets</span><span class="p">):</span>
+    <span class="c1"># Step 1: Split sentences into words and normalize</span>
+    <span class="n">ref_toks</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\b\w+\b'</span><span class="p">,</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">'NFC'</span><span class="p">,</span> <span class="n">reference</span><span class="o">.</span><span class="n">lower</span><span class="p">()))</span>
+    <span class="n">hyp_toks</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\b\w+\b'</span><span class="p">,</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">'NFC'</span><span class="p">,</span> <span class="n">model_output</span><span class="o">.</span><span class="n">lower</span><span class="p">()))</span>
+
+    <span class="c1"># Step 2: Align words by their stripped (undiacritised) forms.</span>
+    <span class="n">rs</span> <span class="o">=</span> <span class="p">[</span><span class="n">strip_token</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ref_toks</span><span class="p">]</span>
+    <span class="n">hs</span> <span class="o">=</span> <span class="p">[</span><span class="n">strip_token</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">hyp_toks</span><span class="p">]</span>
+    <span class="n">m</span>  <span class="o">=</span> <span class="n">difflib</span><span class="o">.</span><span class="n">SequenceMatcher</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">rs</span><span class="p">,</span> <span class="n">hs</span><span class="p">,</span> <span class="n">autojunk</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">aligned_pairs</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">ref_toks</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">hyp_toks</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">get_opcodes</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">'equal'</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">))</span>
+    <span class="p">]</span>
+
+    <span class="c1"># Initialize counts for this sentence</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="p">{</span><span class="s2">"total"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"err"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"del"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"sub"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"words_total"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"words_err"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CLASSES</span><span class="p">}</span>
+
+    <span class="c1"># Step 3: Iterate through the matched words and compare characters (including marks)</span>
+    <span class="k">for</span> <span class="n">w_ref</span><span class="p">,</span> <span class="n">w_hyp</span> <span class="ow">in</span> <span class="n">aligned_pairs</span><span class="p">:</span>
+        <span class="n">rg</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\X'</span><span class="p">,</span> <span class="n">w_ref</span><span class="p">)</span>
+        <span class="n">hg</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\X'</span><span class="p">,</span> <span class="n">w_hyp</span><span class="p">)</span>
+
+        <span class="n">word_has_mark</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CLASSES</span><span class="p">}</span>
+        <span class="n">word_has_err</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CLASSES</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">gr</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rg</span><span class="p">):</span>
+            <span class="bp">cls</span> <span class="o">=</span> <span class="n">get_grapheme_type</span><span class="p">(</span><span class="n">gr</span><span class="p">,</span> <span class="n">lang_sets</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">counts</span><span class="p">[</span><span class="bp">cls</span><span class="p">][</span><span class="s2">"total"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">word_has_mark</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="n">gh</span> <span class="o">=</span> <span class="n">hg</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">hg</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="c1"># If the output character doesn't perfectly match the reference (case-insensitive)</span>
+            <span class="k">if</span> <span class="n">gh</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">'NFC'</span><span class="p">,</span> <span class="n">gr</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="o">!=</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">'NFC'</span><span class="p">,</span> <span class="n">gh</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+                <span class="n">counts</span><span class="p">[</span><span class="bp">cls</span><span class="p">][</span><span class="s2">"err"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">word_has_err</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="c1"># If the AI provided a valid character of any type here but it was wrong, it's a substitution.</span>
+                <span class="c1"># If the AI dropped the character entirely or provided a plain letter, it's a deletion.</span>
+                <span class="k">if</span> <span class="n">gh</span> <span class="ow">and</span> <span class="n">get_grapheme_type</span><span class="p">(</span><span class="n">gh</span><span class="p">,</span> <span class="n">lang_sets</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">counts</span><span class="p">[</span><span class="bp">cls</span><span class="p">][</span><span class="s2">"sub"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">counts</span><span class="p">[</span><span class="bp">cls</span><span class="p">][</span><span class="s2">"del"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CLASSES</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">word_has_mark</span><span class="p">[</span><span class="n">c</span><span class="p">]:</span>
+                <span class="n">counts</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s2">"words_total"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">word_has_err</span><span class="p">[</span><span class="n">c</span><span class="p">]:</span>
+                <span class="n">counts</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s2">"words_err"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">counts</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7638,7 +7942,97 @@ This evaluates the overlap of character sequences and word sequences between the
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># citations:</span>
+<span class="c1"># https://github.com/mjpost/sacrebleu</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm.auto</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">unicodedata</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sacrebleu</span>
+<span class="c1"># Sacrebleu is the industry standard for calculating BLEU and chrF++ translation metrics</span>
+
+
+<span class="c1"># Metrics setup</span>
+<span class="n">_bleu</span> <span class="o">=</span> <span class="n">sacrebleu</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">BLEU</span><span class="p">(</span><span class="n">effective_order</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">_chrf</span> <span class="o">=</span> <span class="n">sacrebleu</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">CHRF</span><span class="p">(</span><span class="n">word_order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">evaluate_translation_dataset</span><span class="p">(</span>
+    <span class="n">english_dataset</span><span class="p">,</span>
+    <span class="n">target_dataset</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">tokenizer</span><span class="p">,</span>
+    <span class="n">tgt_lang_code</span><span class="p">,</span>
+    <span class="n">model_name</span><span class="p">,</span>
+    <span class="n">max_samples</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span>
+<span class="p">):</span>
+    <span class="c1"># Master coordinator function for a single language translation and evaluation.</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">max_samples</span> <span class="k">if</span> <span class="n">max_samples</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span><span class="n">target_dataset</span><span class="p">)</span>
+
+    <span class="n">eng_texts</span> <span class="o">=</span> <span class="p">[</span><span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">'NFC'</span><span class="p">,</span> <span class="n">english_dataset</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">'text'</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">english_dataset</span><span class="p">)))]</span>
+    <span class="n">tgt_texts</span> <span class="o">=</span> <span class="p">[</span><span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">'NFC'</span><span class="p">,</span> <span class="n">target_dataset</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">'text'</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">target_dataset</span><span class="p">)))]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Translating en→</span><span class="si">{</span><span class="n">tgt_lang_code</span><span class="si">}</span><span class="s2"> (Batched)"</span><span class="p">)</span>
+    <span class="n">pred_texts</span> <span class="o">=</span> <span class="n">translate_batch</span><span class="p">(</span><span class="n">eng_texts</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">tgt_lang_code</span><span class="p">,</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
+
+    <span class="c1"># Get the specific alphabet rules for this language</span>
+    <span class="n">lang_sets</span> <span class="o">=</span> <span class="n">SETS</span><span class="p">[</span><span class="n">tgt_lang_code</span><span class="p">]</span>
+
+    <span class="c1"># Setup aggregation dictionaries for grand totals</span>
+    <span class="n">agg</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="p">{</span><span class="s2">"total"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"err"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"del"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"sub"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"words_total"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"words_err"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CLASSES</span><span class="p">}</span>
+
+    <span class="c1"># 2. Go sentence-by-sentence and evaluate</span>
+    <span class="k">for</span> <span class="n">eng_text</span><span class="p">,</span> <span class="n">ref_text</span><span class="p">,</span> <span class="n">pred_text</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">eng_texts</span><span class="p">,</span> <span class="n">tgt_texts</span><span class="p">,</span> <span class="n">pred_texts</span><span class="p">):</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="n">count_diacritic_errors</span><span class="p">(</span><span class="n">ref_text</span><span class="p">,</span> <span class="n">pred_text</span><span class="p">,</span> <span class="n">lang_sets</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">CLASSES</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">counts</span><span class="p">[</span><span class="n">cat</span><span class="p">]:</span>
+                <span class="n">agg</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+=</span> <span class="n">counts</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
+
+        <span class="c1"># Save detailed breakdown for this sentence</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">'english_source'</span><span class="p">:</span> <span class="n">eng_text</span><span class="p">,</span>
+            <span class="s1">'gold_reference'</span><span class="p">:</span> <span class="n">ref_text</span><span class="p">,</span>
+            <span class="s1">'model_output'</span><span class="p">:</span> <span class="n">pred_text</span>
+        <span class="p">})</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">rate</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">denom</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">num</span> <span class="o">/</span> <span class="n">denom</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">if</span> <span class="n">denom</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+
+    <span class="c1"># Package all our findings up neatly into a summary report</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'language'</span><span class="p">:</span> <span class="n">tgt_lang_code</span><span class="p">,</span>
+        <span class="s2">"tder"</span><span class="p">:</span> <span class="n">rate</span><span class="p">(</span><span class="n">agg</span><span class="p">[</span><span class="s2">"T"</span><span class="p">][</span><span class="s2">"err"</span><span class="p">],</span> <span class="n">agg</span><span class="p">[</span><span class="s2">"T"</span><span class="p">][</span><span class="s2">"total"</span><span class="p">]),</span>
+        <span class="s2">"oder"</span><span class="p">:</span> <span class="n">rate</span><span class="p">(</span><span class="n">agg</span><span class="p">[</span><span class="s2">"O"</span><span class="p">][</span><span class="s2">"err"</span><span class="p">],</span> <span class="n">agg</span><span class="p">[</span><span class="s2">"O"</span><span class="p">][</span><span class="s2">"total"</span><span class="p">]),</span>
+        <span class="s2">"mder"</span><span class="p">:</span> <span class="n">rate</span><span class="p">(</span><span class="n">agg</span><span class="p">[</span><span class="s2">"M"</span><span class="p">][</span><span class="s2">"err"</span><span class="p">],</span> <span class="n">agg</span><span class="p">[</span><span class="s2">"M"</span><span class="p">][</span><span class="s2">"total"</span><span class="p">]),</span>
+        <span class="s2">"WDER_T"</span><span class="p">:</span> <span class="n">rate</span><span class="p">(</span><span class="n">agg</span><span class="p">[</span><span class="s2">"T"</span><span class="p">][</span><span class="s2">"words_err"</span><span class="p">],</span> <span class="n">agg</span><span class="p">[</span><span class="s2">"T"</span><span class="p">][</span><span class="s2">"words_total"</span><span class="p">]),</span>
+        <span class="s2">"WDER_O"</span><span class="p">:</span> <span class="n">rate</span><span class="p">(</span><span class="n">agg</span><span class="p">[</span><span class="s2">"O"</span><span class="p">][</span><span class="s2">"words_err"</span><span class="p">],</span> <span class="n">agg</span><span class="p">[</span><span class="s2">"O"</span><span class="p">][</span><span class="s2">"words_total"</span><span class="p">]),</span>
+        <span class="s2">"WDER_M"</span><span class="p">:</span> <span class="n">rate</span><span class="p">(</span><span class="n">agg</span><span class="p">[</span><span class="s2">"M"</span><span class="p">][</span><span class="s2">"words_err"</span><span class="p">],</span> <span class="n">agg</span><span class="p">[</span><span class="s2">"M"</span><span class="p">][</span><span class="s2">"words_total"</span><span class="p">]),</span>
+        <span class="s2">"total_tonal_graphemes"</span><span class="p">:</span> <span class="n">agg</span><span class="p">[</span><span class="s2">"T"</span><span class="p">][</span><span class="s2">"total"</span><span class="p">],</span>
+        <span class="s2">"total_ortho_graphemes"</span><span class="p">:</span> <span class="n">agg</span><span class="p">[</span><span class="s2">"O"</span><span class="p">][</span><span class="s2">"total"</span><span class="p">],</span>
+        <span class="s2">"total_tonal_deletions"</span><span class="p">:</span> <span class="n">agg</span><span class="p">[</span><span class="s2">"T"</span><span class="p">][</span><span class="s2">"del"</span><span class="p">],</span>
+        <span class="s2">"total_tonal_substitutions"</span><span class="p">:</span> <span class="n">agg</span><span class="p">[</span><span class="s2">"T"</span><span class="p">][</span><span class="s2">"sub"</span><span class="p">],</span>
+        <span class="s2">"total_ortho_deletions"</span><span class="p">:</span> <span class="n">agg</span><span class="p">[</span><span class="s2">"O"</span><span class="p">][</span><span class="s2">"del"</span><span class="p">],</span>
+        <span class="s2">"total_ortho_substitutions"</span><span class="p">:</span> <span class="n">agg</span><span class="p">[</span><span class="s2">"O"</span><span class="p">][</span><span class="s2">"sub"</span><span class="p">],</span>
+        <span class="s2">"BLEU"</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">_bleu</span><span class="o">.</span><span class="n">corpus_score</span><span class="p">(</span><span class="n">pred_texts</span><span class="p">,</span> <span class="p">[</span><span class="n">tgt_texts</span><span class="p">])</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="s2">"chrF++"</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">_chrf</span><span class="o">.</span><span class="n">corpus_score</span><span class="p">(</span><span class="n">pred_texts</span><span class="p">,</span> <span class="p">[</span><span class="n">tgt_texts</span><span class="p">])</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">summary</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7650,7 +8044,119 @@ This evaluates the overlap of character sequences and word sequences between the
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># citations:</span>
+<span class="c1"># https://huggingface.co/docs/transformers/perf_infer_gpu_one</span>
+<span class="c1"># https://pytorch.org/docs/stable/notes/cuda.html#memory-management</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">concatenate_datasets</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForSeq2SeqLM</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># 1. Set up our test subjects</span>
+<span class="n">language_configs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"Ewe"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"dataset"</span><span class="p">:</span> <span class="n">concatenate_datasets</span><span class="p">([</span><span class="n">ewe_f</span><span class="p">[</span><span class="s1">'dev'</span><span class="p">],</span> <span class="n">ewe_f</span><span class="p">[</span><span class="s1">'devtest'</span><span class="p">]]),</span>
+        <span class="s2">"english_dataset"</span><span class="p">:</span> <span class="n">concatenate_datasets</span><span class="p">([</span><span class="n">english_ewe_f</span><span class="p">[</span><span class="s1">'dev'</span><span class="p">],</span> <span class="n">english_ewe_f</span><span class="p">[</span><span class="s1">'devtest'</span><span class="p">]]),</span>
+        <span class="s2">"lang_code"</span><span class="p">:</span> <span class="s2">"ewe_Latn"</span>
+    <span class="p">},</span>
+    <span class="s2">"Igbo"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"dataset"</span><span class="p">:</span> <span class="n">concatenate_datasets</span><span class="p">([</span><span class="n">igbo_f</span><span class="p">[</span><span class="s1">'dev'</span><span class="p">],</span> <span class="n">igbo_f</span><span class="p">[</span><span class="s1">'devtest'</span><span class="p">]]),</span>
+        <span class="s2">"english_dataset"</span><span class="p">:</span> <span class="n">concatenate_datasets</span><span class="p">([</span><span class="n">english_igbo_f</span><span class="p">[</span><span class="s1">'dev'</span><span class="p">],</span> <span class="n">english_igbo_f</span><span class="p">[</span><span class="s1">'devtest'</span><span class="p">]]),</span>
+        <span class="s2">"lang_code"</span><span class="p">:</span> <span class="s2">"ibo_Latn"</span>
+    <span class="p">},</span>
+    <span class="s2">"Yoruba"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"dataset"</span><span class="p">:</span> <span class="n">concatenate_datasets</span><span class="p">([</span><span class="n">yoruba_f</span><span class="p">[</span><span class="s1">'dev'</span><span class="p">],</span> <span class="n">yoruba_f</span><span class="p">[</span><span class="s1">'devtest'</span><span class="p">]]),</span>
+        <span class="s2">"english_dataset"</span><span class="p">:</span> <span class="n">concatenate_datasets</span><span class="p">([</span><span class="n">english_yoruba_f</span><span class="p">[</span><span class="s1">'dev'</span><span class="p">],</span> <span class="n">english_yoruba_f</span><span class="p">[</span><span class="s1">'devtest'</span><span class="p">]]),</span>
+        <span class="s2">"lang_code"</span><span class="p">:</span> <span class="s2">"yor_Latn"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">model_configs</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"facebook/nllb-200-distilled-600M"</span><span class="p">,</span>
+    <span class="s2">"facebook/nllb-200-distilled-1.3B"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">all_summaries</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">all_results_dfs</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1"># Use fast graphics card (GPU) if available</span>
+<span class="n">device</span> <span class="o">=</span> <span class="s2">"cuda"</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"cpu"</span>
+
+<span class="c1"># 2. Main Experiment Loop</span>
+<span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">model_configs</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">loading Model: </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="c1"># Download the model and place it into the GPU using half-precision (float16)</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForSeq2SeqLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+        <span class="n">model_name</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span>
+        <span class="n">device_map</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
+        <span class="n">tie_word_embeddings</span><span class="o">=</span><span class="kc">False</span> <span class="c1"># Silences the Hugging Face warning about untied weights</span>
+    <span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span> <span class="c1"># Sets the model to test mode</span>
+
+    <span class="n">all_results_dfs</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Loop over every language</span>
+    <span class="k">for</span> <span class="n">lang</span><span class="p">,</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">language_configs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2"> evaluating </span><span class="si">{</span><span class="n">lang</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">summary</span><span class="p">,</span> <span class="n">results_df</span> <span class="o">=</span> <span class="n">evaluate_translation_dataset</span><span class="p">(</span>
+            <span class="n">english_dataset</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">'english_dataset'</span><span class="p">],</span>
+            <span class="n">target_dataset</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">'dataset'</span><span class="p">],</span>
+            <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+            <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">,</span>
+            <span class="n">tgt_lang_code</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">'lang_code'</span><span class="p">],</span>
+            <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+            <span class="n">max_samples</span><span class="o">=</span><span class="kc">None</span>
+        <span class="p">)</span>
+
+        <span class="n">summary</span><span class="p">[</span><span class="s1">'model'</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_name</span>
+        <span class="n">all_summaries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+        <span class="n">all_results_dfs</span><span class="p">[</span><span class="n">model_name</span><span class="p">][</span><span class="n">lang</span><span class="p">]</span> <span class="o">=</span> <span class="n">results_df</span>
+
+    <span class="c1"># Memory Cleanup</span>
+    <span class="c1"># AI models are huge. We MUST delete the old one from GPU memory before loading the next.</span>
+    <span class="k">del</span> <span class="n">model</span>
+    <span class="k">del</span> <span class="n">tokenizer</span>
+    <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">empty_cache</span><span class="p">()</span>
+
+<span class="c1"># 3. Display &amp; Save Results</span>
+<span class="n">summary_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">all_summaries</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">summary_df</span><span class="p">)</span>
+
+<span class="c1"># Create a timestamped folder in Google Drive</span>
+<span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y%m</span><span class="si">%d</span><span class="s2">_%H%M%S"</span><span class="p">)</span>
+<span class="n">output_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"/content/drive/MyDrive/toner_results_</span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">"</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Save the high-level summary tables</span>
+<span class="n">summary_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">output_dir</span><span class="si">}</span><span class="s2">/summary.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">summary_df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">output_dir</span><span class="si">}</span><span class="s2">/summary.parquet"</span><span class="p">)</span>
+
+<span class="c1"># Save the highly detailed sentence-by-sentence data (parquet is much faster/smaller than json/csv)</span>
+<span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">lang_dfs</span> <span class="ow">in</span> <span class="n">all_results_dfs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">safe_model</span> <span class="o">=</span> <span class="n">model_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="s1">'_'</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">lang</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">lang_dfs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">output_dir</span><span class="si">}</span><span class="s2">/sentences_</span><span class="si">{</span><span class="n">safe_model</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">lang</span><span class="si">}</span><span class="s2">.parquet"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7662,7 +8168,98 @@ This evaluates the overlap of character sequences and word sequences between the
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">chi2_contingency</span>
+
+<span class="c1"># Set visual style</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"whitegrid"</span><span class="p">)</span>
+
+<span class="c1"># FIGURE 1: TDER vs ODER (The Performance Gap &amp; Scaling)</span>
+<span class="c1"># Reshape data to plot CDER and WDER side-by-side easily</span>
+<span class="n">df_melted</span> <span class="o">=</span> <span class="n">summary_df</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">'language'</span><span class="p">,</span> <span class="s1">'model'</span><span class="p">],</span>
+                            <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">'tder'</span><span class="p">,</span> <span class="s1">'oder'</span><span class="p">,</span> <span class="s1">'WDER_T'</span><span class="p">,</span> <span class="s1">'WDER_O'</span><span class="p">],</span>
+                            <span class="n">var_name</span><span class="o">=</span><span class="s1">'Metric'</span><span class="p">,</span>
+                            <span class="n">value_name</span><span class="o">=</span><span class="s1">'Error Rate'</span><span class="p">)</span>
+
+<span class="c1"># Clean up the labels for the chart</span>
+<span class="n">df_melted</span><span class="p">[</span><span class="s1">'Metric'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_melted</span><span class="p">[</span><span class="s1">'Metric'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span>
+    <span class="s1">'tder'</span><span class="p">:</span> <span class="s1">'TDER (Char Tonal)'</span><span class="p">,</span>
+    <span class="s1">'oder'</span><span class="p">:</span> <span class="s1">'ODER (Char Ortho)'</span><span class="p">,</span>
+    <span class="s1">'WDER_T'</span><span class="p">:</span> <span class="s1">'WDER (Word Tonal)'</span><span class="p">,</span>
+    <span class="s1">'WDER_O'</span><span class="p">:</span> <span class="s1">'WDER (Word Ortho)'</span>
+<span class="p">})</span>
+
+<span class="c1"># Create a side-by-side bar chart, split by model</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">df_melted</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">'bar'</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s1">'language'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'Error Rate'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">'Metric'</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">'model'</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">"muted"</span>
+<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">'Figure 1: Tonal vs. Orthographic Error Rates (Character &amp; Word Level)'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># FIGURE 2: Tonal Deletions vs Substitutions</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Sum the error types across all languages for each model</span>
+<span class="n">error_behaviors</span> <span class="o">=</span> <span class="n">summary_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'model'</span><span class="p">)[[</span><span class="s1">'total_tonal_deletions'</span><span class="p">,</span> <span class="s1">'total_tonal_substitutions'</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># Reshape for seaborn</span>
+<span class="n">behaviors_melted</span> <span class="o">=</span> <span class="n">error_behaviors</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s1">'model'</span><span class="p">,</span>
+                                        <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">'total_tonal_deletions'</span><span class="p">,</span> <span class="s1">'total_tonal_substitutions'</span><span class="p">],</span>
+                                        <span class="n">var_name</span><span class="o">=</span><span class="s1">'Error Type'</span><span class="p">,</span>
+                                        <span class="n">value_name</span><span class="o">=</span><span class="s1">'Total Count'</span><span class="p">)</span>
+
+<span class="n">behaviors_melted</span><span class="p">[</span><span class="s1">'Error Type'</span><span class="p">]</span> <span class="o">=</span> <span class="n">behaviors_melted</span><span class="p">[</span><span class="s1">'Error Type'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span>
+    <span class="s1">'total_tonal_deletions'</span><span class="p">:</span> <span class="s1">'Deletions (Omissions)'</span><span class="p">,</span>
+    <span class="s1">'total_tonal_substitutions'</span><span class="p">:</span> <span class="s1">'Substitutions (Incorrect Marks)'</span>
+<span class="p">})</span>
+
+<span class="c1"># Create the bar chart</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">behaviors_melted</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'model'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'Total Count'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">'Error Type'</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">"pastel"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Figure 2: Tonal Error Behaviors (Deletions vs. Substitutions'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Total Count of Errors'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Model'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Character-Level (CDER) Significance Testing:</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">summary_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="c1"># Reconstruct the exact raw error counts directly from the precise percentages</span>
+    <span class="c1"># (Using the recall logic: Total expected marks vs Errors)</span>
+    <span class="n">tonal_err</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'tder'</span><span class="p">]</span> <span class="o">*</span> <span class="n">row</span><span class="p">[</span><span class="s1">'total_tonal_graphemes'</span><span class="p">]))</span>
+    <span class="n">ortho_err</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'oder'</span><span class="p">]</span> <span class="o">*</span> <span class="n">row</span><span class="p">[</span><span class="s1">'total_ortho_graphemes'</span><span class="p">]))</span>
+
+    <span class="n">tonal_correct</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'total_tonal_graphemes'</span><span class="p">])</span> <span class="o">-</span> <span class="n">tonal_err</span>
+    <span class="n">ortho_correct</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'total_ortho_graphemes'</span><span class="p">])</span> <span class="o">-</span> <span class="n">ortho_err</span>
+
+    <span class="c1"># Create a 2x2 table: [Errors, Correct (Total - Errors)]</span>
+    <span class="n">contingency_table</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="n">tonal_err</span><span class="p">,</span> <span class="n">tonal_correct</span><span class="p">],</span>   <span class="c1"># Tonal Bucket</span>
+        <span class="p">[</span><span class="n">ortho_err</span><span class="p">,</span> <span class="n">ortho_correct</span><span class="p">]</span>    <span class="c1"># Ortho Bucket</span>
+    <span class="p">]</span>
+
+    <span class="c1"># Run the Chi-Square test</span>
+    <span class="n">stat</span><span class="p">,</span> <span class="n">p_value</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">expected</span> <span class="o">=</span> <span class="n">chi2_contingency</span><span class="p">(</span><span class="n">contingency_table</span><span class="p">)</span>
+
+    <span class="n">is_sig</span> <span class="o">=</span> <span class="s2">"SIGNIFICANT"</span> <span class="k">if</span> <span class="n">p_value</span> <span class="o">&lt;</span> <span class="mf">0.05</span> <span class="k">else</span> <span class="s2">"NOT significant"</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">'model'</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">'language'</span><span class="p">]</span><span class="si">}</span><span class="s2">): p-value = </span><span class="si">{</span><span class="n">p_value</span><span class="si">:</span><span class="s2">.5e</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">is_sig</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
