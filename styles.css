@@ -68,22 +68,26 @@ a { color: inherit; }
 
 .social-grid {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-self: center;
-  margin: 0;
+  margin: 0 0 0 40px;
 }
 
 .social-grid a {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
   flex: 0 0 auto;
+  min-height: 28px;
   color: var(--blue);
   text-decoration: none;
-  transition: color .18s ease;
+  transition: opacity .18s ease;
 }
 
+.social-grid svg { width: 13px; height: 13px; fill: currentColor; }
 .social-grid a:hover,
-.social-grid a:focus-visible { text-decoration: underline; }
+.social-grid a:focus-visible { opacity: .7; }
 .ruled-section { padding: 30px 32px; border-bottom: 1px solid var(--line-strong); }
 .intro { padding-block: 32px; }
 
@@ -181,7 +185,7 @@ footer a { text-decoration: none; }
 @media (max-width: 640px) {
   .page-shell { width: calc(100% - 24px); }
   .site-header { align-items: center; padding: 20px 18px; }
-  .social-grid { align-self: flex-end; display: flex; }
+  .social-grid { align-self: flex-end; margin-left: 0; }
   .ruled-section { padding: 26px 18px; }
   .intro { padding-block: 28px; }
   .section-heading { grid-template-columns: 28px 1fr; gap: 8px; }
