@@ -128,6 +128,7 @@ h2 {
 .project-links { display: flex; gap: 12px; }
 .project-links .file-link { min-width: 0; }
 strong { color: var(--ink); font-weight: 500; }
+.research-title { cursor: help; text-decoration: underline dotted var(--blue); text-underline-offset: 3px; }
 .venue { color: #94c8ed; font-weight: 700; }
 
 .file-link, .status {
