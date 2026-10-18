@@ -121,10 +121,9 @@ h2 {
 .project-list li:last-child { padding-bottom: 0; }
 
 .project-list p { margin: 0; }
-.research-list p { max-width: 600px; }
-.project-links { display: flex; gap: 12px; }
-.project-links .file-link { min-width: 0; }
 strong { color: var(--ink); font-weight: 500; }
+.research-title { color: var(--ink); font-weight: 500; text-decoration: none; }
+.research-title:hover, .research-title:focus-visible { color: var(--blue); }
 .venue { color: #94c8ed; font-weight: 700; }
 
 .file-link, .status {
