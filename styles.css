@@ -139,14 +139,13 @@ strong { color: var(--ink); font-weight: 500; }
 .file-link:hover { color: var(--ink); }
 .status { color: var(--muted); }
 
-.goal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-.goals-intro { margin: 0 0 18px; }
+.goal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 40px; }
+.goals-intro { max-width: 680px; margin: 0 0 28px; line-height: 1.8; }
 .goal-card { min-width: 0; }
 .goal-card h3 {
   margin: 0;
-  padding: 8px 0;
+  padding: 0 0 8px;
   color: var(--blue);
-  border-top: 2px solid var(--line-strong);
   border-bottom: 2px solid var(--line-strong);
   font-size: inherit;
   font-weight: 700;
@@ -154,31 +153,22 @@ strong { color: var(--ink); font-weight: 500; }
   writing-mode: horizontal-tb;
 }
 
-.goal-content, .check-list { padding: 12px 0 0; }
-.progress-list-content { padding: 12px 0 0; }
-.progress-list-content > .check-list,
-.finished-list .check-list { padding: 0; }
-.finished-list { margin-top: 12px; }
+.goal-content, .progress-list-content { padding-top: 12px; }
+.finished-list { margin-top: 14px; }
 .finished-list summary {
-  padding: 7px 0;
   color: var(--blue);
-  border-top: 1px solid var(--line);
   cursor: pointer;
 }
-.finished-list[open] summary { margin-bottom: 4px; }
-.score-group + .score-group { margin-top: 18px; }
+.finished-list[open] summary { margin-bottom: 8px; }
 .method {
-  margin: 0;
-  padding: 8px 0;
-  color: var(--ink);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  margin: 0 0 8px;
+  color: var(--muted);
 }
-.ranked-list li { display: flex; justify-content: space-between; padding: 7px 0; color: var(--ink); }
+.ranked-list li { display: flex; justify-content: space-between; padding: 5px 0; color: var(--ink); }
 .ranked-list span { color: var(--blue); font-size: inherit; }
-.average-score { display: flex; justify-content: space-between; margin: 0; padding: 7px 0; color: var(--ink); }
+.average-score { display: flex; justify-content: space-between; margin: 10px 0 0; color: var(--ink); }
 .average-score span:first-child { color: var(--blue); }
-.check-list li { position: relative; padding: 5px 0 5px 20px; }
+.check-list li { position: relative; padding: 4px 0 4px 20px; }
 .check-list li::before { position: absolute; left: 0; content: "○"; color: var(--blue); }
 .check-list .done { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--blue); }
 .check-list .done::before { content: "✓"; }
@@ -189,10 +179,6 @@ strong { color: var(--ink); font-weight: 500; }
 footer { display: flex; justify-content: space-between; padding: 18px 32px; color: var(--blue); font-size: inherit; }
 footer p { margin: 0; }
 footer a { text-decoration: none; }
-
-@media (max-width: 860px) {
-  .goal-grid { grid-template-columns: repeat(2, 1fr); }
-}
 
 @media (max-width: 640px) {
   .page-shell { width: calc(100% - 24px); }
