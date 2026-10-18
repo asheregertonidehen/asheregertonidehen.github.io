@@ -123,8 +123,8 @@ h2 {
 
 .project-list p { margin: 0; }
 strong { color: var(--ink); font-weight: 500; }
-.research-title { color: var(--ink); font-weight: 500; text-decoration: none; }
-.research-title:hover, .research-title:focus-visible { color: var(--blue); }
+.title-link { color: var(--ink); font-weight: 500; text-decoration: none; }
+.title-link:hover, .title-link:focus-visible { color: var(--blue); }
 .venue { color: #94c8ed; font-weight: 700; }
 
 .file-link, .status {
