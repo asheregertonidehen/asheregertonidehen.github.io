@@ -133,7 +133,7 @@ strong { color: var(--ink); font-weight: 500; }
   display: inline-block;
   max-width: 100%;
   cursor: help;
-  text-decoration: underline dotted var(--blue);
+  text-decoration: underline dotted rgba(106, 169, 217, 0.35);
   text-underline-offset: 3px;
 }
 .research-title::after {
