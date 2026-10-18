@@ -52,7 +52,7 @@ a { color: inherit; }
 
 .section-heading p {
   margin: 0;
-  color: var(--blue);
+  color: var(--ink);
   font-size: inherit;
   letter-spacing: .16em;
   text-transform: uppercase;
@@ -167,10 +167,11 @@ strong { color: var(--ink); font-weight: 500; }
   margin: 0 0 8px;
   color: var(--muted);
 }
+.score-label { margin: 0 0 4px; color: var(--muted); }
 .ranked-list { display: flex; flex-wrap: wrap; gap: 0 24px; }
-.ranked-list li { color: var(--blue); }
+.ranked-list li { color: var(--ink); }
 .average-score { margin: 10px 0 0; }
-.average-score span:last-child { margin-left: 8px; color: var(--blue); }
+.average-score span:last-child { margin-left: 8px; color: var(--ink); }
 .check-list li { position: relative; padding: 3px 0; color: var(--ink); }
 .check-list .done { padding-left: 20px; color: var(--muted); text-decoration: line-through; text-decoration-color: var(--muted); }
 .check-list .done::before { position: absolute; left: 0; content: "✓"; }
