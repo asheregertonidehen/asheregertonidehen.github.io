@@ -167,8 +167,9 @@ strong { color: var(--ink); font-weight: 500; }
   margin: 0 0 8px;
   color: var(--muted);
 }
-.score-label { margin: 0 0 4px; color: var(--ink); }
-.ranked-list { display: flex; flex-wrap: wrap; gap: 0 24px; }
+.high-scores { display: flex; align-items: baseline; gap: 8px; }
+.score-label { color: var(--ink); white-space: nowrap; }
+.ranked-list { display: flex; flex-wrap: wrap; min-width: 0; gap: 0 24px; }
 .ranked-list li { color: var(--blue); }
 .average-score { margin: 10px 0 0; color: var(--ink); }
 .average-score span:last-child { margin-left: 8px; color: var(--blue); }
