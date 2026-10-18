@@ -172,7 +172,7 @@ strong { color: var(--ink); font-weight: 500; }
 .ranked-list { display: flex; flex-wrap: wrap; min-width: 0; gap: 0 24px; }
 .ranked-list li { color: var(--blue); }
 .score-stat { margin: 0; color: var(--ink); }
-.high-scores + .score-stat { margin-top: 10px; }
+.high-scores + .score-stat, .score-stat + .score-stat { margin-top: 10px; }
 .score-stat span:last-child { margin-left: 8px; color: var(--blue); }
 .check-list li { position: relative; padding: 3px 0; color: var(--blue); }
 .check-list .done { padding-left: 20px; text-decoration: line-through; }
