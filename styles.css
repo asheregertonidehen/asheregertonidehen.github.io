@@ -3,9 +3,9 @@
   --muted: #abbccc;
   --blue: #6aa9d9;
   --deep-blue: #071c2d;
-  --line: rgba(129, 186, 225, 0.25);
-  --line-strong: rgba(129, 186, 225, 0.52);
-  --grid: rgba(89, 153, 196, 0.065);
+  --line: rgba(129, 186, 225, 0.17);
+  --line-strong: rgba(129, 186, 225, 0.36);
+  --grid: rgba(89, 153, 196, 0.035);
 }
 
 * { box-sizing: border-box; }
@@ -20,8 +20,8 @@ body {
   background-image:
     linear-gradient(var(--grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid) 1px, transparent 1px),
-    linear-gradient(rgba(89, 153, 196, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(89, 153, 196, 0.025) 1px, transparent 1px);
+    linear-gradient(rgba(89, 153, 196, 0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(89, 153, 196, 0.012) 1px, transparent 1px);
   background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
   font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: 14px;
@@ -33,7 +33,6 @@ a { color: inherit; }
 .page-shell {
   width: min(840px, calc(100% - 48px));
   margin: 0 auto;
-  border-inline: 1px solid var(--line);
 }
 
 .site-header {
@@ -122,6 +121,7 @@ h2 {
   padding: 13px 0;
   border-top: 1px solid var(--line);
 }
+.project-list li:first-child { border-top: 0; padding-top: 0; }
 
 .project-list p { margin: 0; }
 .research-list p { max-width: 600px; }
@@ -162,10 +162,9 @@ strong { color: var(--ink); font-weight: 500; }
   min-width: 84px;
   color: var(--blue);
   font-size: inherit;
-  letter-spacing: .1em;
+  letter-spacing: .03em;
   text-align: right;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
 .file-link:hover { color: var(--ink); }
@@ -182,8 +181,7 @@ strong { color: var(--ink); font-weight: 500; }
   border-bottom: 2px solid var(--line-strong);
   font-size: inherit;
   font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
+  letter-spacing: .03em;
   writing-mode: horizontal-tb;
 }
 
@@ -218,8 +216,9 @@ strong { color: var(--ink); font-weight: 500; }
 .check-list .done::before { content: "✓"; }
 
 .plain-list li { padding: 11px 0; border-top: 1px solid var(--line); }
+.plain-list li:first-child { border-top: 0; padding-top: 0; }
 
-footer { display: flex; justify-content: space-between; padding: 18px 32px; color: var(--blue); font-size: inherit; text-transform: uppercase; }
+footer { display: flex; justify-content: space-between; padding: 18px 32px; color: var(--blue); font-size: inherit; }
 footer p { margin: 0; }
 footer a { text-decoration: none; }
 
