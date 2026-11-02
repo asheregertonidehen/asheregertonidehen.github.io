@@ -150,6 +150,7 @@ footer a { text-decoration: none; }
 
 .title-link, .file-link, .social-grid a, footer a {
   text-decoration: underline;
+  text-decoration-color: rgba(183, 190, 197, 0.55);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
