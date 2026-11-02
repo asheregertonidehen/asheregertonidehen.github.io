@@ -148,6 +148,12 @@ footer { display: flex; justify-content: space-between; padding: 18px 32px; colo
 footer p { margin: 0; }
 footer a { text-decoration: none; }
 
+.title-link, .file-link, .social-grid a, footer a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
 @media (max-width: 640px) {
   .page-shell { width: calc(100% - 24px); }
   .site-header { padding: 20px 18px; }
