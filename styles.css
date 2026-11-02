@@ -155,6 +155,8 @@ footer a { text-decoration: none; }
   text-underline-offset: 3px;
 }
 
+.file-link[aria-label$="code"] { text-decoration-color: #3f6f94; }
+
 @media (max-width: 640px) {
   .page-shell { width: calc(100% - 24px); }
   .site-header { padding: 20px 18px; }
